@@ -1,0 +1,20 @@
+{
+    "name": "delorkor/telegram-bot-client",
+    "description": "telegram-bot-client",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Delorkor\\TelegramBotClient\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "delorkor"
+        }
+    ],
+    "require": {
+        "symfony/http-client": "^6.0",
+        "symfony/http-foundation": "^6.0",
+        "symfony/dependency-injection": "^6.0"
+    }
+}
