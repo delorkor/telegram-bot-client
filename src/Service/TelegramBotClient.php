@@ -14,6 +14,8 @@ class TelegramBotClient
     private const SEND_MESSAGE = 'sendMessage';
     private const GET_UPDATES = 'getUpdates';
     private const SEND_DOCUMENT = 'sendDocument';
+    private const SEND_AUDIO = 'sendAudio';
+    private const SEND_PHOTO = 'sendPhoto';
     private string $token;
     private HttpClientInterface $httpClient;
 
@@ -62,4 +64,47 @@ public function sendDocument(string $chatId, string $filePath)
 
     return $response->toArray();
 }
+
+public function sendAudio(string $chatId, string $audioPath)
+{
+    $formFields = [
+        'chat_id' => $chatId,
+        'audio' => DataPart::fromPath($audioPath),
+    ];
+    $formData = new FormDataPart($formFields);
+
+    $response = $this->httpClient->request(
+        Request::METHOD_POST,
+        self::API . $this->token . '/' . self::SEND_AUDIO,
+        [
+            'headers' => $formData->getPreparedHeaders()->toArray(),
+            'body' => $formData->bodyToIterable(),
+        ]
+    );
+
+    return $response->toArray();
+}
+
+
+public function sendPhoto(string $chatId, string $photoPath)
+{
+    $formFields = [
+        'chat_id' => $chatId,
+        'photo' => DataPart::fromPath($photoPath),
+    ];
+    $formData = new FormDataPart($formFields);
+
+    $response = $this->httpClient->request(
+        Request::METHOD_POST,
+        self::API . $this->token . '/' . self::SEND_PHOTO,
+        [
+            'headers' => $formData->getPreparedHeaders()->toArray(),
+            'body' => $formData->bodyToIterable(),
+        ]
+    );
+
+    return $response->toArray();
+}
+
+
 }
